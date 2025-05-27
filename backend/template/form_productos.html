@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if is_editing %}Editar Producto{% else %}Crear Nuevo Producto{% endif %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form_prod.css') }}">
+</head>
+<body>
+    <main>
+        <div class="form-container">
+            <h1>{% if is_editing %}Editar Producto{% else %}Crear Nuevo Producto{% endif %}</h1>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="flash-messages-container">
+                        {% for category, message in messages %}
+                            <div class="flash-message {{ category }}">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+
+            <form action="{% if is_editing %}{{ url_for('actualizar_producto', id_producto=product.id_producto) }}{% else %}{{ url_for('crear_producto') }}{% endif %}" method="POST">
+                
+                {% if is_editing %}
+                    <input type="hidden" name="id_producto" value="{{ product.id_producto }}">
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="nombre_producto">Nombre del Producto:</label>
+                    <input type="text" id="nombre_producto" name="nombre_producto" value="{{ product.nombre_producto if is_editing else '' }}" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="descripcion">Descripción:</label>
+                    <textarea id="descripcion" name="descripcion">{{ product.descripcion if is_editing else '' }}</textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_categoria">Categoría:</label>
+                    <select id="id_categoria" name="id_categoria" required>
+                        <option value="">-- Seleccione una categoría --</option>
+                        {% for categoria in categorias %}
+                            <option value="{{ categoria.id_categoria }}" {% if is_editing and product.id_categoria == categoria.id_categoria %}selected{% endif %}>
+                                {{ categoria.nombre_categoria }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <input type="checkbox" id="disponible" name="disponible" value="True" {% if is_editing and product.disponible %}checked{% endif %}>
+                    <label for="disponible">Producto Disponible</label>
+                </div>
+
+                <div class="form-actions">
+                    <a href="{{ url_for('inicio') }}" class="cancel-btn">Cancelar</a>
+                    <button type="submit" class="submit-btn">
+                        {% if is_editing %}Actualizar Producto{% else %}Crear Producto{% endif %}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Productos - Tu Tienda Online</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/productos.css') }}">
+    <script>
+        function changePerPage() {
+            const selectElement = document.getElementById('per_page_select');
+            const selectedValue = selectElement.value;
+            window.location.href = "{{ url_for('inicio') }}?per_page=" + selectedValue;
+        }
+
+        function confirmDelete(id) {
+            if (confirm('¿Estás seguro de que quieres eliminar este producto? Esta acción es irreversible.')) {
+                document.getElementById('delete-form-' + id).submit();
+            }
+        }
+    </script>
+</head>
+<body>
+    <header class="header">
+        <a href="{{ url_for('inicio') }}" class="logo">Tienda Online</a>
+        <a href="/login" class="login-btn">cerrar sesión</a>
+    </header>
+
+    <main class="main-content">
+        <h1>Catálogo de Productos</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages-container">
+                    {% for category, message in messages %}
+                        <div class="flash-message {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <a href="{{ url_for('crear_producto_form') }}" class="add-product-btn">+ Añadir Nuevo Producto</a>
+
+        {% if productos %}
+        <table class="product-table">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Categoría</th>
+                    <th>Precio (Desde)</th>
+                    <th>Stock Total</th>
+                    <th>Disponibilidad</th>
+                    <th>Acciones</th> </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                <tr>
+                    <td>{{ producto.nombre_producto }}</td>
+                    <td class="product-description">{{ producto.descripcion }}</td>
+                    <td>{{ producto.nombre_categoria if producto.nombre_categoria else 'Sin Categoría' }}</td>
+                    <td>${{ "%.2f"|format(producto.precio_minimo) if producto.precio_minimo is not none else 'N/A' }}</td>
+                    <td>{{ producto.stock_total if producto.stock_total is not none else '0' }}</td>
+                    <td class="availability-status
+                        {% if producto.disponible %}
+                            {% if producto.stock_total is not none and producto.stock_total > 10 %}available
+                            {% elif producto.stock_total is not none and producto.stock_total > 0 %}low-stock
+                            {% else %}out-of-stock
+                            {% endif %}
+                        {% else %}out-of-stock
+                        {% endif %}">
+                        {% if producto.disponible %}
+                            {% if producto.stock_total is not none and producto.stock_total > 0 %}
+                                En Stock ({{ producto.stock_total }})
+                            {% else %}
+                                Agotado
+                            {% endif %}
+                        {% else %}
+                            No Disponible
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="{{ url_for('editar_producto_form', id_producto=producto.id_producto) }}" class="edit-btn">Editar</a>
+                            <form id="delete-form-{{ producto.id_producto }}" action="{{ url_for('eliminar_producto', id_producto=producto.id_producto) }}" method="POST" style="display:inline;">
+                                <button type="button" class="delete-btn" onclick="confirmDelete({{ producto.id_producto }})">Eliminar</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No hay productos disponibles en este momento.</p>
+        {% endif %}
+
+        <div class="pagination-controls">
+            <div class="items-per-page">
+                <label for="per_page_select">Elementos por página:</label>
+                <select id="per_page_select" onchange="changePerPage()">
+                    {% for option in per_page_options %}
+                        <option value="{{ option }}" {% if option == per_page %}selected{% endif %}>{{ option }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="pagination">
+                {% if page > 1 %}
+                    <a href="{{ url_for('inicio', page=page-1, per_page=per_page) }}">&laquo; Anterior</a>
+                {% else %}
+                    <span class="disabled">&laquo; Anterior</span>
+                {% endif %}
+
+                {% for p in range(1, total_pages + 1) %}
+                    {% if p == page %}
+                        <span class="active">{{ p }}</span>
+                    {% else %}
+                        <a href="{{ url_for('inicio', page=p, per_page=per_page) }}">{{ p }}</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page < total_pages %}
+                    <a href="{{ url_for('inicio', page=page+1, per_page=per_page) }}">Siguiente &raquo;</a>
+                {% else %}
+                    <span class="disabled">Siguiente &raquo;</span>
+                {% endif %}
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        &copy; 2025 Tu Tienda Online. Todos los derechos reservados.
+    </footer>
+</body>
+</html>

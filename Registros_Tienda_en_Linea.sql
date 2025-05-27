@@ -1,0 +1,213 @@
+USE tienda_en_linea;
+INSERT INTO usuario (correoElectronico, contrasena) VALUES
+('carlos.gomez@example.com', 'password123'),
+('ana.martinez@example.com', 'password123'),
+('pedro.lopez@example.com', 'password123'),
+('maria.rodriguez@example.com', 'password123'),
+('juan.perez@example.com', 'password123'),
+('laura.gonzalez@example.com', 'password123'),
+('sofia.fernandez@example.com', 'password123'),
+('javier.torres@example.com', 'password123'),
+('marta.ruiz@example.com', 'password123'),
+('luis.hernandez@example.com', 'password123'),
+('ricardo.sanchez@example.com', 'password123'),
+('elena.perez@example.com', 'password123'),
+('fernando.mendoza@example.com', 'password123'),
+('victoria.martinez@example.com', 'password123'),
+('santiago.alvarez@example.com', 'password123'),
+('gabriela.diaz@example.com', 'password123'),
+('pablo.vega@example.com', 'password123'),
+('ines.jimenez@example.com', 'password123'),
+('ximena.arara@example.com', 'password123'),
+('miguel.romero@example.com', 'password123');
+
+INSERT INTO tipoIdentificacion (tipoidentificacion) VALUES
+('Cédula de ciudadanía'),
+('Pasaporte'),
+('Tarjeta de identidad');
+
+INSERT INTO persona (nombre, apellido, numeroTelefono, numeroIdentificacion, idUsuario, idTipoIdentificacion) VALUES
+('Carlos', 'Gomez', '3101234567', '123456789', 1, 1),
+('Ana', 'Martinez', '3112345678', '234567890', 2, 1),
+('Pedro', 'Lopez', '3123456789', '345678901', 3, 2),
+('Maria', 'Rodriguez', '3134567890', '456789012', 5, 2),
+('Juan', 'Perez', '3145678901', '567890123', 6, 1),
+('Laura', 'Gonzalez', '3156789012', '678901234', 7, 3),
+('Sofia', 'Fernandez', '3167890123', '789012345', 8, 1),
+('Javier', 'Torres', '3178901234', '890123456', 9, 3),
+('Marta', 'Ruiz', '3189012345', '901234567', 10, 1),
+('Luis', 'Hernandez', '3190123456', '012345678', 11, 2),
+('Ricardo', 'Sanchez', '3201234567', '1234567890',12, 1),
+('Elena', 'Perez', '3212345678', '2345678901', 13, 2),
+('Fernando', 'Mendoza', '3223456789', '3456789012', 14, 3),
+('Victoria', 'Martinez', '3234567890', '4567890123', 15, 2),
+('Santiago', 'Alvarez', '3245678901', '5678901234', 16, 1),
+('Gabriela', 'Diaz', '3256789012', '6789012345', 16, 3),
+('Pablo', 'Vega', '3267890123', '7890123456', 17, 2),
+('Ines', 'Jimenez', '3278901234', '8901234567', 18, 1),
+('Ximena', 'Arara', '3234341234', '3298473982', 19, 1),
+('Miguel', 'Romero', '3289012345', '9012345678', 20, 3);
+
+INSERT INTO rol (rol) VALUES
+('admin'),
+('cliente'),
+('vendedor');
+
+INSERT INTO usuarioRol (idRol, idUsuario) VALUES
+(1, 1), (2, 2), (2, 3), (2, 4), (2, 5),
+(2, 6), (2, 7), (2, 8), (2, 9), (2, 10),
+(3, 11), (3, 12), (2, 13), (2, 14), (2, 15),
+(3, 16), (2, 17), (2, 18), (2, 19), (2, 20);
+
+INSERT INTO categoria (nombre) VALUES
+('Camisetas'),
+('Pantalones'),
+('Chaquetas'),
+('Accesorios'),
+('Zapatos');
+
+INSERT INTO producto (nombre, descripcion, idCategoria, inventario) VALUES
+('Camiseta Básica', 'Camiseta 100% algodón, talla única', 1, 100),
+('Jeans Clásicos', 'Jeans de mezclilla con corte recto', 2, 150),
+('Chaqueta de Cuero', 'Chaqueta de cuero genuino para hombre', 3, 50),
+('Sombrero de Paja', 'Sombrero de paja para verano', 4, 200),
+('Zapatillas Deportivas', 'Zapatillas cómodas para deporte', 5, 80),
+('Camiseta Estampada', 'Camiseta con estampado gráfico', 1, 120),
+('Pantalón de Chándal', 'Pantalón de chándal cómodo para hacer ejercicio', 2, 90),
+('Chaqueta de Lana', 'Chaqueta de lana para invierno', 3, 60),
+('Bufanda de Lana', 'Bufanda de lana para el frío', 4, 180),
+('Botas de Cuero', 'Botas de cuero para hombre', 5, 70);
+
+INSERT INTO varianteProducto (idProducto, talla, color, inventario, precio, urlImagen) VALUES
+(1, 'S', 'Blanco', 50, 14.99, '/img/camiseta-blanca-s.jpg'),
+(1, 'M', 'Blanco', 60, 14.99, '/img/camiseta-blanca-m.jpg'),
+(1, 'L', 'Blanco', 40, 14.99, '/img/camiseta-blanca-l.jpg'),
+(2, '32', 'Azul', 70, 29.99, '/img/jeans-azul-32.jpg'),
+(2, '34', 'Azul', 80, 29.99, '/img/jeans-azul-34.jpg'),
+(2, '36', 'Azul', 60, 29.99, '/img/jeans-azul-36.jpg'),
+(3, 'M', 'Negro', 20, 99.99, '/img/chaqueta-cuero-negra-m.jpg'),
+(3, 'L', 'Negro', 15, 99.99, '/img/chaqueta-cuero-negra-l.jpg'),
+(4, 'Tamaño Único', 'Beige', 150, 19.99, '/img/sombrero-beige.jpg'),
+(5, '42', 'Blanco', 30, 59.99, '/img/zapatillas-blancas-42.jpg'),
+(5, '43', 'Blanco', 40, 59.99, '/img/zapatillas-blancas-43.jpg'),
+(6, 'S', 'Rojo', 70, 16.99, '/img/camiseta-roja-s.jpg'),
+(6, 'M', 'Rojo', 50, 16.99, '/img/camiseta-roja-m.jpg'),
+(7, 'L', 'Negro', 60, 25.99, '/img/pantalon-negro-l.jpg'),
+(7, 'M', 'Negro', 80, 25.99, '/img/pantalon-negro-m.jpg'),
+(8, 'M', 'Gris', 50, 89.99, '/img/chaqueta-gris-m.jpg'),
+(8, 'L', 'Gris', 40, 89.99, '/img/chaqueta-gris-l.jpg'),
+(9, 'Tamaño Único', 'Gris', 100, 14.99, '/img/bufanda-gris.jpg'),
+(10, '42', 'Marrón', 30, 129.99, '/img/botas-marrones-42.jpg'),
+(10, '43', 'Marrón', 40, 129.99, '/img/botas-marrones-43.jpg');
+
+INSERT INTO pedido (idUsuario, total, estado) VALUES
+(1, 150.00, 'PAGADO'),
+(2, 200.00, 'PENDIENTE'),
+(3, 99.99, 'PAGADO'),
+(4, 129.99, 'ENVIADO'),
+(5, 70.00, 'CANCELADO'),
+(6, 59.99, 'PENDIENTE'),
+(7, 169.99, 'PAGADO'),
+(8, 80.00, 'PENDIENTE'),
+(9, 199.99, 'ENVIADO'),
+(10, 100.00, 'PAGADO'),
+(11, 90.00, 'PENDIENTE'),
+(12, 80.00, 'CANCELADO'),
+(13, 150.00, 'PAGADO'),
+(14, 210.00, 'PENDIENTE'),
+(15, 60.00, 'ENVIADO'),
+(16, 180.00, 'PAGADO'),
+(17, 50.00, 'CANCELADO'),
+(18, 75.00, 'PENDIENTE'),
+(19, 125.00, 'PAGADO'),
+(20, 300.00, 'PENDIENTE');
+
+INSERT INTO detallePedido (idPedido, idVarianteProducto, cantidad, precioUnitario) VALUES
+(1, 1, 2, 14.99),
+(1, 2, 1, 29.99),
+(2, 3, 1, 99.99),
+(3, 4, 1, 19.99),
+(4, 5, 2, 59.99),
+(5, 6, 1, 16.99),
+(6, 7, 1, 25.99),
+(7, 8, 1, 89.99),
+(8, 9, 2, 14.99),
+(9, 10, 1, 129.99),
+(10, 11, 1, 16.99),
+(11, 12, 1, 25.99),
+(12, 13, 1, 89.99),
+(13, 14, 1, 129.99),
+(14, 15, 2, 59.99),
+(15, 16, 1, 89.99),
+(16, 17, 1, 14.99),
+(17, 18, 2, 59.99),
+(18, 19, 1, 14.99),
+(19, 20, 1, 129.99);
+
+INSERT INTO carrito (idUsuario, idVarianteProducto, cantidad) VALUES
+(1, 1, 3),
+(2, 2, 2),
+(3, 3, 1),
+(4, 4, 1),
+(5, 5, 2),
+(6, 6, 1),
+(7, 7, 2),
+(8, 8, 1),
+(9, 9, 2),
+(10, 10, 1),
+(11, 11, 1),
+(12, 12, 1),
+(13, 13, 1),
+(14, 14, 1),
+(15, 15, 2),
+(16, 16, 1),
+(17, 17, 1),
+(18, 18, 1),
+(19, 19, 1),
+(20, 20, 1);
+
+INSERT INTO pago (idPedido, metodo, monto, estado) VALUES
+(1, 'Tarjeta', 150.00, 'COMPLETADO'),
+(2, 'Transferencia', 200.00, 'PENDIENTE'),
+(3, 'PayPal', 99.99, 'COMPLETADO'),
+(4, 'Tarjeta', 129.99, 'COMPLETADO'),
+(5, 'Efectivo', 70.00, 'FALLIDO'),
+(6, 'Tarjeta', 59.99, 'PENDIENTE'),
+(7, 'PayPal', 169.99, 'COMPLETADO'),
+(8, 'Transferencia', 80.00, 'PENDIENTE'),
+(9, 'Efectivo', 199.99, 'COMPLETADO'),
+(10, 'PayPal', 100.00, 'COMPLETADO'),
+(11, 'Tarjeta', 90.00, 'PENDIENTE'),
+(12, 'Efectivo', 80.00, 'FALLIDO'),
+(13, 'PayPal', 150.00, 'COMPLETADO'),
+(14, 'Transferencia', 210.00, 'PENDIENTE'),
+(15, 'Tarjeta', 60.00, 'COMPLETADO'),
+(16, 'Efectivo', 180.00, 'COMPLETADO'),
+(17, 'PayPal', 50.00, 'FALLIDO'),
+(18, 'Tarjeta', 75.00, 'PENDIENTE'),
+(19, 'Transferencia', 125.00, 'COMPLETADO'),
+(20, 'Efectivo', 300.00, 'PENDIENTE');
+
+INSERT INTO envio (idPedido, direccion, ciudad, pais, codigoPostal) VALUES
+(1, 'Calle Falsa 123', 'Madrid', 'España', '28080'),
+(2, 'Av. Libertador 456', 'Buenos Aires', 'Argentina', 'C1001'),
+(3, 'Rua das Flores 789', 'Lisboa', 'Portugal', '1200-345'),
+(4, 'Main Street 101', 'Nueva York', 'EE.UU.', '10001'),
+(5, 'Calle del Sol 567', 'México D.F.', 'México', '01000'),
+(6, 'Avenida Paulista 800', 'São Paulo', 'Brasil', '01310-100'),
+(7, 'Carrer de Pau Claris 12', 'Barcelona', 'España', '08010'),
+(8, 'Via Nazionale 45', 'Roma', 'Italia', '00184'),
+(9, 'Champs-Élysées 50', 'París', 'Francia', '75008'),
+(10, 'Calle Serrano 100', 'Madrid', 'España', '28006'),
+(11, 'Avenida del Valle 22', 'Santiago', 'Chile', '8320000'),
+(12, 'Broadway 56', 'Los Ángeles', 'EE.UU.', '90012'),
+(13, 'Calle Mayor 34', 'Valencia', 'España', '46001'),
+(14, 'Boulevard de la Reine 11', 'Bruselas', 'Bélgica', '1000'),
+(15, 'Calle Mayor 90', 'Sevilla', 'España', '41001'),
+(16, 'Avenida Santa Fe 300', 'Ciudad de México', 'México', '06000'),
+(17, 'Rua Augusta 120', 'São Paulo', 'Brasil', '01305-000'),
+(18, 'Calle de Alcalá 100', 'Madrid', 'España', '28009'),
+(19, 'Viale Mazzini 7', 'Roma', 'Italia', '00195'),
+(20, 'Paseo de la Castellana 34', 'Madrid', 'España', '28046');
+
+SELECT * FROM persona;
